@@ -40,9 +40,6 @@ jobs:
            output: 'trivy-image-results.sarif'
            severity: 'CRITICAL,HIGH'
           
-        - name: Upload the scan result to GitHub Security
-          uses: github/codeql-action/upload-sarif@v2
-          with:
-           sarif_file: 'trivy-image-results.sarif'
-           category: 'image'
+        - name: Display Scan Results
+          run: cat trivy-image-results.sarif   
         
