@@ -22,10 +22,8 @@ jobs:
           uses: actions/setup-java@v1
           with:
            java-version: ${{inputs.java-version}}
-        - name: SonarCloud Scan
-                 echo "line 26"
-          run: mvn -B clean verify -Psonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-                   echo "line 28"
+        - name: SonarCloud Scanning
+          run: mvn -B clean verify -Psonar -Dsonar.login=${{ secrets.SONAR_TOKEN }
           env:
            GITTOKEN: ${{ secrets.GITTOKEN }}
            
