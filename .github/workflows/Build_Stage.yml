@@ -20,8 +20,8 @@ jobs:
   CodeCheckout_Codebuild:
     name: Code checkout & Codebuild
     runs-on: ${{inputs.runnerName}}
-    env:
-      MY_TOKEN: ${{ secrets.GITTOKEN }}
+#    env:
+#      MY_TOKEN: ${{ secrets.GITTOKEN }}
 
     steps:
       - uses: actions/checkout@v3
