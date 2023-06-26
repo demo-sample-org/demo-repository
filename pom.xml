@@ -76,11 +76,11 @@
 			<id>sonar</id>
 			<properties>
 				<sonar.sources>.</sonar.sources>
-				<sonar.branch.name>main</sonar.branch.name>
+				<sonar.branch.name>feature</sonar.branch.name>
 				<sonar.inclusions>src/main/java/**,src/main/resources/**</sonar.inclusions>
 				<sonar.exclusions>${code.coverage.exclusions}</sonar.exclusions>
-				<sonar.projectKey>Shara-org_sample-java-repo</sonar.projectKey>
-				<sonar.organization>shara-org</sonar.organization>
+				<sonar.projectKey>demo-sample-org_demo-repository</sonar.projectKey>
+				<sonar.organization>demo-sample-org</sonar.organization>
 				<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 			</properties>
 			<activation>
