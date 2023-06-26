@@ -23,7 +23,9 @@ jobs:
           with:
            java-version: ${{inputs.java-version}}
         - name: SonarCloud Scan
+                 echo "line 26"
           run: mvn -B clean verify -Psonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+                   echo "line 28"
           env:
            GITTOKEN: ${{ secrets.GITTOKEN }}
            
