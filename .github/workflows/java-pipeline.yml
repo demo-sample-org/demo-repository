@@ -9,38 +9,38 @@ jobs:
   
   Codebuild:
     name: Codebuild
-    uses: "./.github/workflows/Build_Stage.yml"
+    uses: "./.github/workflows/actions/Build_Stage.yml"
     with:
-       runnerName: "shara-org-runner"
+       runnerName: "demo-org"
        java-version: "11"
        distribution: "temurin"
        cache: "maven" 
     
   CodeScanning:
     name: Test - SonarCloud Scan
-    uses: "./.github/workflows/Code_Quality_Stage.yml"
+    uses: "./.github/workflows/actions/Code_Quality_Stage.yml"
     needs: [ Codebuild ]
     with:
        java-version : "11.0.4"
-       runnerName: "shara-org-runner"
+       runnerName: "demo-org"
           
   buildImageandDeploy:
     name: building docker image
     needs: [ Codebuild , CodeScanning]
-    uses: "./.github/workflows/deploystage.yml"
+    uses: "./.github/workflows/actions/deploystage.yml"
     with:
-      runnerName: "shara-org-runner"
+      runnerName: "demo-org"
   TrivyScanner:
       name: Trivyscanner
-      uses: "./.github/workflows/trivy.yml"
+      uses: "./.github/workflows/actions/trivy.yml"
       needs: [ Codebuild,buildImageandDeploy ] 
       with:
-       runnerName: "shara-org-runner"
+       runnerName: "demo-org"
   Terraform:
       name: Terraform 
-      uses: "./.github/workflows/terraform.yml"
+      uses: "./.github/workflows/actions/terraform.yml"
       #needs: [ Codebuild,buildImageandDeploy ]
       with:
-       runnerName: "shara-org-runner"
+       runnerName: "demo-org"
       
       
