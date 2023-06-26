@@ -2,11 +2,18 @@ name: 'Terraform'
 
 on:
   workflow_call:
+  
+   inputs:
+      
+      runnerName:
+        required: true
+        default: "ubuntu-latest"
+        type: string
 
 jobs:
   terraform:
     name: 'Terraform'
-    runs-on: ubuntu-latest
+    runs-on: ${{inputs.runnerName}}
     
     steps:
     # Checkout the repository to the GitHub Actions runner
