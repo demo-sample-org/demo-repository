@@ -11,7 +11,7 @@ jobs:
     name: Codebuild
     uses: "./.github/workflows/Build_Stage.yml"
     with:
-       runnerName: "demo-org"
+       runnerName: "ubuntu-latest"
        java-version: "11"
        distribution: "temurin"
        cache: "maven" 
@@ -22,27 +22,27 @@ jobs:
     needs: [ Codebuild ]
     with:
        java-version : "11.0.4"
-       runnerName: "demo-org"
+       runnerName: "ubuntu-latest"
           
   buildImageandDeploy:
     name: building docker image
     needs: [ Codebuild , CodeScanning]
     uses: "./.github/workflows/deploystage.yml"
     with:
-      runnerName: "demo-org"
+      runnerName: "ubuntu-latest"
       
   TrivyScanner:
       name: Trivyscanner
       uses: "./.github/workflows/trivy.yml"
       needs: [ Codebuild,buildImageandDeploy ] 
       with:
-       runnerName: "demo-org"
+       runnerName: "ubuntu-latest"
        
   Terraform:
       name: Terraform 
       uses: "./.github/workflows/terraform.yml"
       #needs: [ Codebuild,buildImageandDeploy ]
       with:
-       runnerName: "demo-org"
+       runnerName: "ubuntu-latest"
       
       
