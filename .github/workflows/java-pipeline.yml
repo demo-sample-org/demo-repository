@@ -9,7 +9,7 @@ jobs:
   
   Codebuild:
     name: Codebuild
-    uses: "./.github/workflows/actions/Build_Stage.yml"
+    uses: "./.github/actions/Build_Stage.yml"
     with:
        runnerName: "demo-org"
        java-version: "11"
@@ -18,7 +18,7 @@ jobs:
     
   CodeScanning:
     name: Test - SonarCloud Scan
-    uses: "./.github/workflows/actions/Code_Quality_Stage.yml"
+    uses: "./.github/actions/Code_Quality_Stage.yml"
     needs: [ Codebuild ]
     with:
        java-version : "11.0.4"
@@ -27,18 +27,18 @@ jobs:
   buildImageandDeploy:
     name: building docker image
     needs: [ Codebuild , CodeScanning]
-    uses: "./.github/workflows/actions/deploystage.yml"
+    uses: "./.github/actions/deploystage.yml"
     with:
       runnerName: "demo-org"
   TrivyScanner:
       name: Trivyscanner
-      uses: "./.github/workflows/actions/trivy.yml"
+      uses: "./.github/actions/trivy.yml"
       needs: [ Codebuild,buildImageandDeploy ] 
       with:
        runnerName: "demo-org"
   Terraform:
       name: Terraform 
-      uses: "./.github/workflows/actions/terraform.yml"
+      uses: "./.github/actions/terraform.yml"
       #needs: [ Codebuild,buildImageandDeploy ]
       with:
        runnerName: "demo-org"
