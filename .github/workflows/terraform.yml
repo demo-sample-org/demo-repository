@@ -2,7 +2,10 @@ name: 'Terraform'
 
 on:
   workflow_call:
-  
+   secrets:
+    TF_API_TOKEN:
+        required: true
+    
    inputs:
       
       runnerName:
