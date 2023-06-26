@@ -16,7 +16,6 @@ jobs:
   docker:
     name: Publish - Docker Hub
     runs-on: ${{ inputs.runnerName }}
-    
     steps:
         - uses: actions/checkout@v1
         - name: Set up JDK 11
