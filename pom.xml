@@ -65,7 +65,7 @@
             <version>3.0.0-M1</version>
             <configuration>
                 <repositoryId>github</repositoryId>
-                <url>https://maven.pkg.github.com/Shara1998/sample-java-repo</url>
+                <url>https://maven.pkg.github.com/pshara6644/demo-repository</url>
             </configuration>
         </plugin>
     
@@ -109,7 +109,7 @@
 		<repository>
 			<id>github</id>
 			<name>simplejavacode</name>
-			<url>https://maven.pkg.github.com/Shara1998/sample-java-repo</url>
+			<url>https://maven.pkg.github.com/pshara6644/demo-repository</url>
 		</repository>
 	</distributionManagement>
 </project>
