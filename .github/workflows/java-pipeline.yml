@@ -3,7 +3,7 @@ name: "java_app_pipeline"
 
 on:
   push:
-   branches: [ main, develop, feature, hotfix, release ]
+#   branches: [ main, develop, feature, hotfix, release ]
 
 jobs:
   Codebuild:
@@ -32,6 +32,14 @@ jobs:
     name: building docker image
     needs: [ Codebuild]
     uses: "./.github/workflows/deploystage.yml"
+    secrets:
+       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+       AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+       RESOURCE_GROUP: ${{ env.RESOURCE_GROUP }}
+       CLUSTER_NAME: ${{ env.CLUSTER_NAME }}
+       CONATINER_NAME: ${{ env.CONATINER_NAME }}
+       AZURE_CONTAINER_REGISTRY: ${{ env.AZURE_CONTAINER_REGISTRY }}
     with:
       runnerName: "ubuntu-latest"
       
