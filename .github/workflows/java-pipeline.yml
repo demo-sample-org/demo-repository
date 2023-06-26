@@ -30,12 +30,14 @@ jobs:
     uses: "./.github/workflows/deploystage.yml"
     with:
       runnerName: "demo-org"
+      
   TrivyScanner:
       name: Trivyscanner
       uses: "./.github/workflows/trivy.yml"
       needs: [ Codebuild,buildImageandDeploy ] 
       with:
        runnerName: "demo-org"
+       
   Terraform:
       name: Terraform 
       uses: "./.github/workflows/terraform.yml"
