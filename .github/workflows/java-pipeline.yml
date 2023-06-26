@@ -20,12 +20,10 @@ jobs:
     uses: "./.github/workflows/Code_Quality_Stage.yml"
     needs: [ Codebuild ]
     secrets:
-      AUPTNAME: "${{ secrets.AUPTNAME }}"
-      AUPTDETAIL: "${{ secrets.AUPTDETAIL }}"
-      AUPTEMAIL: "${{ secrets.AUPTEMAIL }}"
+     
+      GITTOKEN: "${{ secrets.GITTOKEN }}"
       SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
-      sonarUserName: "${{ secrets.sonarUserName }}"
-      sonarPass: "${{ secrets.sonarPass }}"
+     
     with:
        java-version : "11.0.4"
        runnerName: "ubuntu-latest"
