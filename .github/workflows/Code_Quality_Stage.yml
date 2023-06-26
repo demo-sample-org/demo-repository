@@ -1,6 +1,12 @@
 on:
   workflow_call:
-  
+   secrets:
+    
+      GITTOKEN:
+        required: true
+      SONAR_TOKEN:
+        required: true
+      
    inputs:
       
       runnerName:
