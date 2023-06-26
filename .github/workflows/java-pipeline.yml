@@ -6,7 +6,6 @@ on:
    branches: [ main, develop, feature, hotfix, release ]
 
 jobs:
-  
   Codebuild:
     name: Codebuild
     uses: "./.github/workflows/Build_Stage.yml"
