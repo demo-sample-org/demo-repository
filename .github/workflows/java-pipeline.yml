@@ -41,7 +41,7 @@ jobs:
 #        CONATINER_NAME: ${{ env.CONATINER_NAME }}
 #        AZURE_CONTAINER_REGISTRY: ${{ env.AZURE_CONTAINER_REGISTRY }}
 #     with:
-#       runnerName: "ubuntu-latest"
+#  #     runnerName: "ubuntu-latest"
       
   TrivyScanner:
       name: Trivyscanner
