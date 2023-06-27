@@ -28,20 +28,15 @@ jobs:
        java-version : "11.0.4"
        runnerName: "ubuntu-latest"
             
-#   buildImageandDeploy:
-#     name: building docker image
-#     needs: [ Codebuild]
-#     uses: "./.github/workflows/deploystage.yml"
-#     secrets:
-#        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-#        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-#        AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#        RESOURCE_GROUP: ${{ env.RESOURCE_GROUP }}
-#        CLUSTER_NAME: ${{ env.CLUSTER_NAME }}
-#        CONATINER_NAME: ${{ env.CONATINER_NAME }}
-#        AZURE_CONTAINER_REGISTRY: ${{ env.AZURE_CONTAINER_REGISTRY }}
-#     with:
-#  #     runnerName: "ubuntu-latest"
+  buildImageandDeploy:
+     name: building docker image
+     needs: [ Codebuild, CodeScanning]
+     uses: "./.github/workflows/deploystage.yml"
+     secrets:
+        AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+        
+     with:
+       runnerName: "ubuntu-latest"
       
   TrivyScanner:
       name: Trivyscanner
