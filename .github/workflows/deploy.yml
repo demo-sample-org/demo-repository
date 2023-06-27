@@ -14,7 +14,7 @@ on:
         type: string
 jobs:
   docker:
-    name: Publish - Docker Hub
+    name: Build & Publish Docker image 
     runs-on: ${{ inputs.runnerName }}
     env:
        REPO: ${{ secrets.DOCKER_REPO }}
@@ -30,16 +30,4 @@ jobs:
           run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
         - name: Publish Docker image
           run: docker push $REPO
-    
-        - name: Image Scan
-          uses: aquasecurity/trivy-action@master
-          with:
-           image-ref: ${{ env.REPO }}
-           security-checks: 'vuln,secret,config'
-           format: 'sarif'
-           output: 'trivy-image-results.sarif'
-           severity: 'CRITICAL,HIGH'
-          
-        - name: Display Scan Results
-          run: cat trivy-image-results.sarif   
-        
+ 
