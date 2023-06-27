@@ -29,22 +29,22 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
         
-    - name: Install Azure CLI
-      run: |
-       curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-       az version
+#     - name: Install Azure CLI
+#       run: |
+#        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+#        az version
 
-      # Login to Azure
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+#       # Login to Azure
+#     - name: Azure Login
+#       uses: azure/login@v1
+#       with:
+#           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # Set up Azure CLI
-    - name: Set up Azure CLI
-      uses: azure/CLI@v1
-      with:
-          azcliversion: latest
+#     # Set up Azure CLI
+#     - name: Set up Azure CLI
+#       uses: azure/CLI@v1
+#       with:
+#           azcliversion: latest
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -56,5 +56,5 @@ jobs:
 
     # apply command 
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/"feature"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
