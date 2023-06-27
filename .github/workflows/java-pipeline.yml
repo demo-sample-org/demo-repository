@@ -31,7 +31,7 @@ jobs:
   buildImageandDeploy:
      name: building docker image
      needs: [ Codebuild, CodeScanning]
-     uses: "./.github/workflows/deploystage.yml"
+     uses: "./.github/workflows/deploy.yml"
      secrets:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
@@ -42,7 +42,7 @@ jobs:
       
   TrivyScanner:
       name: Trivyscanner
-      uses: "./.github/workflows/trivy.yml"
+      uses: "./.github/workflows/trivyscan.yml"
       needs: [ Codebuild,CodeScanning, buildImageandDeploy ] 
       secrets:
         DOCKER_REPO: ${{ secrets.DOCKER_REPO }}
