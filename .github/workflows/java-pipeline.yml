@@ -33,7 +33,9 @@ jobs:
      needs: [ Codebuild, CodeScanning]
      uses: "./.github/workflows/deploystage.yml"
      secrets:
-        AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+        DOCKER_REPO: ${{ secrets.DOCKER_REPO }}
         
      with:
        runnerName: "ubuntu-latest"
@@ -41,10 +43,8 @@ jobs:
   TrivyScanner:
       name: Trivyscanner
       uses: "./.github/workflows/trivy.yml"
-      needs: [ Codebuild,CodeScanning ] 
+      needs: [ Codebuild,CodeScanning, buildImageandDeploy ] 
       secrets:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
         DOCKER_REPO: ${{ secrets.DOCKER_REPO }}
       with:
        runnerName: "ubuntu-latest"
