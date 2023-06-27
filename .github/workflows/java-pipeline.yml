@@ -16,8 +16,8 @@ jobs:
        cache: "maven" 
     
   CodeScanning:
-     name: Test - SonarCloud Scan
-     uses: "./.github/workflows/Code_Quality_Stage.yml"
+     name: SonarCloud Scan
+     uses: "./.github/workflows/code-quality.yml"
      needs: [ Codebuild ]
      secrets:
      
@@ -29,7 +29,7 @@ jobs:
        runnerName: "ubuntu-latest"
             
   buildImageandDeploy:
-     name: building docker image
+     name: Building docker image
      needs: [ Codebuild, CodeScanning]
      uses: "./.github/workflows/deploy.yml"
      secrets:
@@ -41,7 +41,7 @@ jobs:
        runnerName: "ubuntu-latest"
       
   TrivyScanner:
-      name: Trivyscanner
+      name: Trivy Scan
       uses: "./.github/workflows/trivyscan.yml"
       needs: [ Codebuild,CodeScanning, buildImageandDeploy ] 
       secrets:
@@ -50,7 +50,7 @@ jobs:
        runnerName: "ubuntu-latest"
        
   Terraform:
-      name: Terraform 
+      name: Terraform setup
       uses: "./.github/workflows/terraform.yml"
       needs: [ Codebuild,CodeScanning, buildImageandDeploy,TrivyScanner ] 
       secrets:
