@@ -10,7 +10,6 @@ on:
         required: true
         default: "ubuntu-latest"
         type: string
-
 jobs:
   
   deploy:
