@@ -12,6 +12,7 @@ on:
         required: true
         default: "ubuntu-latest"
         type: string
+        
 jobs:
   docker:
     name: Build & Publish Docker image 
