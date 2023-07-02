@@ -8,7 +8,7 @@ on:
 jobs:
   Codebuild:
     name: Codebuild
-    uses: "./templates/build.yml"
+    uses: "./templates/build.yml@feature"
     with:
        runnerName: "ubuntu-latest"
        java-version: "11"
@@ -26,7 +26,7 @@ jobs:
      with:
        java-version : "11.0.4"
        runnerName: "ubuntu-latest"
-            
+    
   buildImageandDeploy:
      name: Building docker image
      needs: [ Codebuild, CodeScanning]
