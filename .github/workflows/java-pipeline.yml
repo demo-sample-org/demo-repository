@@ -8,16 +8,15 @@ on:
 jobs:
   Codebuild:
     name: Codebuild
-    uses: "./templates/build.yml@feature"
+    uses: "./.github/templates/build.yml@feature"
     with:
        runnerName: "ubuntu-latest"
        java-version: "11"
        distribution: "temurin"
        cache: "maven" 
-    
   CodeScanning:
      name: SonarCloud Scan
-     uses: "./.github/workflows/templates/code-quality.yml"
+     uses: "./.github/workflows/templates/code-quality.yml@feature"
      needs: [ Codebuild ]
      secrets:
       GITTOKEN: "${{ secrets.GITTOKEN }}"
