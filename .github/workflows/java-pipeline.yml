@@ -8,7 +8,7 @@ on:
 jobs:
   Codebuild:
     name: Codebuild
-    uses: "./.github/workflows/templates/build.yml"
+    uses: "./templates/build.yml"
     with:
        runnerName: "ubuntu-latest"
        java-version: "11"

@@ -1,0 +1,44 @@
+on:
+  workflow_call:
+   secrets:
+      AZURE_CREDENTIALS:
+        required: true
+     
+   inputs:
+      
+      runnerName:
+        required: true
+        default: "ubuntu-latest"
+        type: string
+jobs:
+  
+  deploy:
+   
+    runs-on: ${{ inputs.runnerName }}
+  
+    environment:
+      name: 'Development'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: java-app
+      - name: Install Azure CLI
+        run: |
+         curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+          az version
+          
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: '*.jar'

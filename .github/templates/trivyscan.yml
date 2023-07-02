@@ -1,0 +1,31 @@
+on:
+  workflow_call:
+   secrets:
+     
+      DOCKER_REPO:
+        required: true
+   inputs:
+      runnerName:
+        required: true
+        default: "ubuntu-latest"
+        type: string
+jobs:
+  trivy:
+    name: Trivy Scanning
+    runs-on: ${{ inputs.runnerName }}
+    env:
+       REPO: ${{ secrets.DOCKER_REPO }}
+    steps:
+      
+        - name: Image Scan
+          uses: aquasecurity/trivy-action@master
+          with:
+           image-ref: ${{ env.REPO }}
+           security-checks: 'vuln,secret,config'
+           format: 'sarif'
+           output: 'trivy-image-results.sarif'
+           severity: 'CRITICAL,HIGH'
+          
+        - name: Display Scan Results
+          run: cat trivy-image-results.sarif   
+        

@@ -1,0 +1,60 @@
+name: 'Terraform'
+
+on:
+  workflow_call:
+   secrets:
+    TF_API_TOKEN:
+        required: true
+    
+   inputs:
+      
+      runnerName:
+        required: true
+        default: "ubuntu-latest"
+        type: string
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ${{inputs.runnerName}}
+    
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        
+#     - name: Install Azure CLI
+#       run: |
+#        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+#        az version
+
+#       # Login to Azure
+#     - name: Azure Login
+#       uses: azure/login@v1
+#       with:
+#           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+#     # Set up Azure CLI
+#     - name: Set up Azure CLI
+#       uses: azure/CLI@v1
+#       with:
+#           azcliversion: latest
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      run: terraform plan -input=false
+
+    # apply command 
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/"feature"' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false
