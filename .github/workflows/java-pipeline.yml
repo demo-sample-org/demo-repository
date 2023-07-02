@@ -8,7 +8,7 @@ on:
 jobs:
   Codebuild:
     name: Codebuild
-    uses: "./.github/workflows/build.yml"
+    uses: "./.github/workflows/templates/build.yml"
     with:
        runnerName: "ubuntu-latest"
        java-version: "11"
@@ -17,7 +17,7 @@ jobs:
     
   CodeScanning:
      name: SonarCloud Scan
-     uses: "./.github/workflows/code-quality.yml"
+     uses: "./.github/workflows/templates/code-quality.yml"
      needs: [ Codebuild ]
      secrets:
      
@@ -31,7 +31,7 @@ jobs:
   buildImageandDeploy:
      name: Building docker image
      needs: [ Codebuild, CodeScanning]
-     uses: "./.github/workflows/deploy.yml"
+     uses: "./.github/workflows/templates/deploy.yml"
      secrets:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
@@ -42,7 +42,7 @@ jobs:
       
   TrivyScanner:
       name: Trivy Scan
-      uses: "./.github/workflows/trivyscan.yml"
+      uses: "./.github/workflows/templates/trivyscan.yml"
       needs: [ Codebuild,CodeScanning, buildImageandDeploy ] 
       secrets:
         DOCKER_REPO: ${{ secrets.DOCKER_REPO }}
@@ -51,7 +51,7 @@ jobs:
        
   Terraform:
       name: Terraform setup
-      uses: "./.github/workflows/terraform.yml"
+      uses: "./.github/workflows/templates/terraform.yml"
       needs: [ Codebuild,CodeScanning, buildImageandDeploy,TrivyScanner ] 
       secrets:
         TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
