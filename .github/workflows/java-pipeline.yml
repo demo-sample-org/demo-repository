@@ -7,8 +7,9 @@ on:
 
 jobs:
   Codebuild:
+    
     name: Codebuild
-    uses: "./.github/templates/build.yml@feature"
+    uses: ./.github/templates/build.yml
     with:
        runnerName: "ubuntu-latest"
        java-version: "11"
